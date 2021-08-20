@@ -1,1 +1,1 @@
-# Words-embeddings-for-Romanian-language
+# Words embeddings for Romanian language
