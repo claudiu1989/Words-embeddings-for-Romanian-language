@@ -8,18 +8,14 @@ Usage:
 python ./word2vec_generation_ro.py
 """
 
-import nltk
 import time
+import nltk
 from gensim.models import Word2Vec
 from nltk.stem.snowball import RomanianStemmer
 
 
 def generate_embeddings(data_file, vector_size, preprocess, use_skipgram, use_hierarchical_softmax):
-    """Example function with types documented in the docstring.
-
-    `PEP 484`_ type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`_, they do not need to be
-    included in the docstring:
+    """The main function.
 
     Args:
         data_file (str): Path to the corpus (a text file).
@@ -38,11 +34,11 @@ def generate_embeddings(data_file, vector_size, preprocess, use_skipgram, use_hi
         if preprocess:
             rs = RomanianStemmer()
             for line in lines:
-              words = nltk.word_tokenize(line)
-              stemmed_words = [rs.stem(word.lower()) for word in words]
-              tokenized_lines.append(stemmed_words)
-        else: 
-            tokenized_lines = [nltk.word_tokenize(line)  for line in lines]
+                words = nltk.word_tokenize(line)
+                stemmed_words = [rs.stem(word.lower()) for word in words]
+                tokenized_lines.append(stemmed_words)
+        else:
+            tokenized_lines = [nltk.word_tokenize(line) for line in lines]
 
         if use_skipgram:
             sg = 1
@@ -69,9 +65,10 @@ def generate_embeddings(data_file, vector_size, preprocess, use_skipgram, use_hi
         end = time.time()
         processing_time = end-start
         print(f'Processing time: {processing_time}')
-        with open('processing_time.txt','a') as time_file:
+        with open('processing_time.txt', 'a') as time_file:
             time_file.write(f'Processing time for parameters vector_size:{vector_size},  preprocess:{preprocess}, use_skipgram:{use_skipgram}, use_hierarchical_softmax:{use_hierarchical_softmax}: {processing_time}\n')
         model.save(f"word2vec-ro-{vector_size}{preprocess_part}{architecture_part}{training_part}.model")
+
 
 if __name__ == '__main__':
     # A Romanian language corpus (e.g. Wikipedia Ro dump)
